@@ -5,7 +5,7 @@ module.exports = {
   entry: './index.js',
   output: {
     path: path.resolve(__dirname, "./dist"),
-    library: 'vue-iscroll',
+    library: 'vue-iscroll-component',
     libraryTarget: 'umd',
     umdNamedDefine: true,
     filename: 'index.js'
