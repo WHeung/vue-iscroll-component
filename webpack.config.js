@@ -4,11 +4,11 @@ var webpack = require('webpack')
 module.exports = {
   entry: './index.js',
   output: {
-    path: path.resolve(__dirname, "./example/dist"),
+    path: path.resolve(__dirname, "./dist"),
     library: 'vue-iscroll',
     libraryTarget: 'umd',
     umdNamedDefine: true,
-    filename: 'example.build.js'
+    filename: 'index.js'
   },
   module: {
     rules: [
