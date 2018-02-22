@@ -15,12 +15,15 @@
 </template>
 
 <script>
-import { getOffsetTop } from './util'
+import scrollDirective from './iScroll'
 const DOWN_REFRESH_EXCCED_HEIGHT = 70
 
 export default {
   name: 'vueIcroll',
   props: ['contentStyle', 'options', 'disabled', 'downRefreshabled', 'scrollWrapStyle'],
+  directives: {
+    'i-scroll': scrollDirective
+  },
   data () {
     return {
       downFreshStatus: 'waitFresh'
@@ -53,6 +56,7 @@ export default {
       const self = this
       if (scrollWrap) {
         scrollWrap.style.height = window.innerHeight - getOffsetTop(this.$refs.main) + 'px'
+        console.log(getOffsetTop(this.$refs.main))
         const IScroll = scrollWrap.iscroll
         IScroll.on('scroll', function () {
           self.$emit('handleScroll', this)
@@ -83,6 +87,18 @@ export default {
     }
   }
 }
+function getOffsetTop (el) {
+  if (typeof el === 'object') {
+    var y = el.offsetTop
+    while (el.offsetParent) {
+      el = el.offsetParent
+      y += el.offsetTop
+    }
+    return y
+  } else {
+    return 0
+  }
+}
 </script>
 
 <style module>
@@ -111,17 +127,6 @@ export default {
   position: absolute;
   bottom: -40px;
 }
-  /** i
-  //   display inline-block
-  //   width 20px
-  //   height 20px
-  //   background url('~src\public\back_icon_grey@3x.png') no-repeat
-  //   background-size 100% 100%
-  //   vertical-align text-bottom
-  //   margin-right 15px
-  //   transform rotate(-90deg)
-     transition transform .3s linear
-  */
 
 .readyFresh i {
   transform: rotate(90deg);

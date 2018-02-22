@@ -1,7 +1,5 @@
-import Vue from 'vue'
-
 // 滚动条模拟，一般给二级滚动层使用
-Vue.directive('i-scroll', {
+const scrollDirective = {
   bind: function (el, binding, vnode) {
     console.log('bind')
     let options = { preventDefault: false }
@@ -25,7 +23,7 @@ Vue.directive('i-scroll', {
     unsetWindowScrollTop()
     el.removeEventListener('touchstart', el.iScrollRefresh, false)
   }
-})
+}
 
 // 防止app内出现下拉刷新
 function setWindowScrollTop () {
@@ -451,7 +449,7 @@ IScroll.prototype = {
 
   _init: function () {
     this._initEvents()
-// INSERT POINT: _init
+  // INSERT POINT: _init
   },
   destroy: function () {
     this._initEvents(true)
@@ -618,7 +616,7 @@ IScroll.prototype = {
     this.moved = true
     this._translate(newX, newY)
 
-/* REPLACE START: _move */
+  /* REPLACE START: _move */
 
     if (timestamp - this.startTime > 300) {
       this.startTime = timestamp
@@ -626,7 +624,7 @@ IScroll.prototype = {
       this.startY = this.y
     }
 
-/* REPLACE END: _move */
+  /* REPLACE END: _move */
   },
 
   _end: function (e) {
@@ -688,7 +686,7 @@ IScroll.prototype = {
       this.isInTransition = 1
     }
 
-// INSERT POINT: _end
+  // INSERT POINT: _end
 
     if (newX !== this.x || newY !== this.y) {
       // change easing function when scroller goes out of the boundaries
@@ -756,7 +754,7 @@ IScroll.prototype = {
     this.wrapperHeight = this.wrapper.clientHeight
 
     var rect = utils.getRect(this.scroller)
-/* REPLACE START: refresh */
+  /* REPLACE START: refresh */
 
     this.scrollerWidth = rect.width
     this.scrollerHeight = rect.height
@@ -764,7 +762,7 @@ IScroll.prototype = {
     this.maxScrollX = this.wrapperWidth - this.scrollerWidth
     this.maxScrollY = this.wrapperHeight - this.scrollerHeight
 
-/* REPLACE END: refresh */
+  /* REPLACE END: refresh */
 
     this.hasHorizontalScroll = this.options.scrollX && this.maxScrollX < 0
     this.hasVerticalScroll = this.options.scrollY && this.maxScrollY < 0
@@ -799,7 +797,7 @@ IScroll.prototype = {
 
     this.resetPosition()
 
-// INSERT POINT: _refresh
+  // INSERT POINT: _refresh
   },
 
   on: function (type, fn) {
@@ -918,19 +916,19 @@ IScroll.prototype = {
         }
       })
     }
-// INSERT POINT: _transitionTime
+  // INSERT POINT: _transitionTime
   },
   _transitionTimingFunction: function (easing) {
     this.scrollerStyle[utils.style.transitionTimingFunction] = easing
-// INSERT POINT: _transitionTimingFunction
+  // INSERT POINT: _transitionTimingFunction
   },
 
   _translate: function (x, y) {
     if (this.options.useTransform) {
-/* REPLACE START: _translate */
+  /* REPLACE START: _translate */
       this.scrollerStyle[utils.style.transform] = 'translate(' + x + 'px,' + y + 'px)' + this.translateZ
       this._execEvent('scroll')
-/* REPLACE END: _translate */
+  /* REPLACE END: _translate */
     } else {
       x = Math.round(x)
       y = Math.round(y)
@@ -941,7 +939,7 @@ IScroll.prototype = {
     this.x = x
     this.y = y
 
-// INSERT POINT: _translate
+  // INSERT POINT: _translate
   },
 
   _initEvents: function (remove) {
@@ -1089,4 +1087,4 @@ IScroll.prototype = {
 }
 IScroll.utils = utils
 
-export default IScroll
+export default scrollDirective
