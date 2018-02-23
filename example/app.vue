@@ -1,20 +1,67 @@
 <template>
   <div :class="$style.main">
-    <IScroll>
+    <IScroll :options="options" v-model="IScroll"
+    @handleScroll="handleScroll"
+    @handleTopBounce="handleTopBounce"
+    @handleBottomBounce="handleBottomBounce">
+      <div :class="$style.topOver">
+        <i></i><span>{{topTips}}</span>
+      </div>
       <ul :class="$style.list">
         <li v-for="item in 30" :key="item">{{item}}</li>
       </ul>
+      <div :class="$style.bottomOver">
+        <i></i><span>{{bottomTips}}</span>
+      </div>
     </IScroll>
   </div>
 </template>
 
 <script>
-import IScroll from './dist/vue-iscroll.vue'
+import IScroll from './dist/vue-iscroll.vue'//'vue-iscroll-component'
+const overHeight = 50
 
-console.dir(IScroll)
 export default {
-  name: '',
-  components: { IScroll }
+  name: 'example',
+  components: { IScroll },
+  data () {
+    return {
+      IScroll: {},
+      topTips: '',
+      bottomTips: '',
+      options: {
+        containerH: 400,
+        topBounceH: overHeight,
+        bottomBounceH: overHeight
+      }
+    }
+  },
+  methods: {
+    handleScroll (iScroll) {
+      let tips = ''
+      if (iScroll.y > 0) { // 下拉过顶
+        tips = '松开不触发handleTopBounce'
+        if (iScroll.y > this.options.topBounceH) {
+          tips = '松开触发handleTopBounce'
+        }
+        this.topTips = tips
+      }
+      console.log(iScroll.maxScrollY - iScroll.y)
+      if (iScroll.maxScrollY - iScroll.y > 0) { // 上拉过底
+        tips = '松开不触发handleBottomBounce'
+        if (iScroll.maxScrollY - iScroll.y > this.options.bottomBounceH) {
+          tips = '松开触发handleBottomBounce'
+        }
+        this.bottomTips = tips
+      }
+    },
+    handleTopBounce (iScroll) {
+      console.log('假装下拉刷新')
+    },
+    handleBottomBounce (iScroll) {
+      console.log('假装上拉加载更多')
+    }
+  }
 }
 </script>
 
@@ -26,9 +73,40 @@ body {
 .list {
   margin: 0;
   padding: 0;
+  padding-top: 20px;
 }
 .list li {
-  margin-bottom: 20px;
+  list-style: none;
+  margin: 0 20px 20px;
+  text-align: center;
+  background: #eee;
+}
+
+.topOver {
+  position: absolute;
+  top: -40px;
+  height: 40px;
+  width: 100%;
+  line-height: 41px;
+  text-align: center;
+}
+.bottomOver {
+  position: absolute;
+  bottom: -40px;
+  height: 40px;
+  width: 100%;
+  line-height: 41px;
+  text-align: center;
+}
+
+.waitFresh,.readyFresh {
+  width: 100%;
+  position: absolute;
+  bottom: -40px;
+}
+
+.readyFresh i {
+  transform: rotate(90deg);
 }
 
 </style>

@@ -25,7 +25,7 @@ const scrollDirective = {
   }
 }
 
-// 防止app内出现下拉刷新
+// 防止下拉触发原生滚动
 function setWindowScrollTop () {
   const body = window.document.getElementsByTagName('body')[0]
   const html = window.document.getElementsByTagName('html')[0]
@@ -616,7 +616,6 @@ IScroll.prototype = {
     this.moved = true
     this._translate(newX, newY)
 
-  /* REPLACE START: _move */
 
     if (timestamp - this.startTime > 300) {
       this.startTime = timestamp
@@ -624,7 +623,6 @@ IScroll.prototype = {
       this.startY = this.y
     }
 
-  /* REPLACE END: _move */
   },
 
   _end: function (e) {
@@ -686,7 +684,6 @@ IScroll.prototype = {
       this.isInTransition = 1
     }
 
-  // INSERT POINT: _end
 
     if (newX !== this.x || newY !== this.y) {
       // change easing function when scroller goes out of the boundaries
@@ -727,7 +724,7 @@ IScroll.prototype = {
       y = 0
       this._execEvent('topBounce', this.y) // 当上拉超过页面底部并松手 ，在产生回弹的瞬间输出事件
     } else if (this.y < this.maxScrollY) {
-      this._execEvent('bottomBounce') // 当下拉超过页面底部并松手 ，在产生回弹的瞬间输出事件
+      this._execEvent('bottomBounce', this.maxScrollY - this.y) // 当下拉超过页面底部并松手 ，在产生回弹的瞬间输出事件
       y = this.maxScrollY
     }
 
