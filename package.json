@@ -1,7 +1,7 @@
 {
   "name": "vue-iscroll-component",
   "description": "A vue iScroll component",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": "heung <L_WHeung@163.com>",
   "license": "MIT",
   "scripts": {
