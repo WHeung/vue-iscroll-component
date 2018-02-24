@@ -1,6 +1,10 @@
 <template>
   <div :class="$style.main">
-    <IScroll :options="options" v-model="IScroll"
+    <IScroll v-model="IScroll"
+    :options="options"
+    :containerH="containerH"
+    :topBounceH="topBounceH"
+    :bottomBounceH="bottomBounceH"
     @handleScroll="handleScroll"
     @handleTopBounce="handleTopBounce"
     @handleBottomBounce="handleBottomBounce">
@@ -18,8 +22,8 @@
 </template>
 
 <script>
-import IScroll from './dist/vue-iscroll.vue'//'vue-iscroll-component'
-const overHeight = 50
+import IScroll from 'vue-iscroll-component'//'./dist/vue-iscroll.vue'//
+const OVERHEIGHT = 50
 
 export default {
   name: 'example',
@@ -29,11 +33,10 @@ export default {
       IScroll: {},
       topTips: '',
       bottomTips: '',
-      options: {
-        containerH: 400,
-        topBounceH: overHeight,
-        bottomBounceH: overHeight
-      }
+      containerH: 400,
+      topBounceH: OVERHEIGHT,
+      bottomBounceH: OVERHEIGHT,
+      options: {}
     }
   },
   methods: {
