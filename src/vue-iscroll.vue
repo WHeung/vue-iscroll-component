@@ -54,7 +54,6 @@ export default {
         if (!this.containerStyle.height) {
           containerHeight = window.innerHeight - getOffsetTop(this.$refs.main) + 'px'
         }
-        console.log(getOffsetTop(this.$refs.main))
         const IScroll = scrollWrap.iscroll
         IScroll.on('scroll', function () {
           self.$emit('handleScroll', this)

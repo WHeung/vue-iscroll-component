@@ -2,7 +2,7 @@
   <div :class="$style.main">
     <IScroll v-model="IScroll"
     :options="options"
-    :containerH="containerH"
+    :containerStyle="containerStyle"
     :topBounceH="topBounceH"
     :bottomBounceH="bottomBounceH"
     @handleScroll="handleScroll"
@@ -33,7 +33,9 @@ export default {
       IScroll: {},
       topTips: '',
       bottomTips: '',
-      containerH: 400,
+      containerStyle: {
+        height: '400px'
+      },
       topBounceH: OVERHEIGHT,
       bottomBounceH: OVERHEIGHT,
       options: {}
@@ -44,7 +46,7 @@ export default {
       let tips = ''
       if (iScroll.y > 0) { // 下拉过顶
         tips = '松开不触发handleTopBounce'
-        if (iScroll.y > this.options.topBounceH) {
+        if (iScroll.y > this.topBounceH) {
           tips = '松开触发handleTopBounce'
         }
         this.topTips = tips
@@ -52,7 +54,7 @@ export default {
       console.log(iScroll.maxScrollY - iScroll.y)
       if (iScroll.maxScrollY - iScroll.y > 0) { // 上拉过底
         tips = '松开不触发handleBottomBounce'
-        if (iScroll.maxScrollY - iScroll.y > this.options.bottomBounceH) {
+        if (iScroll.maxScrollY - iScroll.y > this.bottomBounceH) {
           tips = '松开触发handleBottomBounce'
         }
         this.bottomTips = tips
