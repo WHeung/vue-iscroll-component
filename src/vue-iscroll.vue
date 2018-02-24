@@ -3,8 +3,8 @@
     <slot></slot>
   </div>
   <div v-else :class="$style.main" @touchmove.prevent ref="main">
-    <div :class="$style.scrollWrap" :style="options.containerStyle" v-i-scroll="options" ref="scrollWrap">
-      <div :class="$style.scrollContent" :style="options.contentStyle">
+    <div :class="$style.scrollWrap" :style="containerStyle" v-i-scroll="options" ref="scrollWrap">
+      <div :class="$style.scrollContent" :style="contentStyle">
         <slot></slot>
       </div>
     </div>
@@ -26,15 +26,24 @@ export default {
     disabled: {
       type: Boolean,
       default: false
-    }
+    },
+    containerStyle: {
+      type: Object,
+      default: () => {
+        return {}
+      }
+    },
+    contentStyle: {
+      type: Object,
+      default: () => {
+        return {}
+      }
+    },
+    topBounceH: [String, Number],
+    bottomBounceH: [String, Number],
   },
   directives: {
     'i-scroll': scrollDirective
-  },
-  data () {
-    return {
-      downFreshStatus: 'waitFresh'
-    }
   },
   mounted () {
     this.$nextTick(function () { // nextTick在全局VUE DOM結點更新是會調用
@@ -42,27 +51,24 @@ export default {
       const self = this
       if (scrollWrap) {
         let containerHeight
-        if (!this.options.containerH) {
+        if (!this.containerStyle.height) {
           containerHeight = window.innerHeight - getOffsetTop(this.$refs.main) + 'px'
-        } else {
-          containerHeight = this.options.containerH + 'px'
         }
-        scrollWrap.style.height = containerHeight
         console.log(getOffsetTop(this.$refs.main))
         const IScroll = scrollWrap.iscroll
         IScroll.on('scroll', function () {
           self.$emit('handleScroll', this)
         })
         IScroll.on('bottomBounce', function (exceedHeight) { // 需要在 下拉超过底部并松手一瞬间监控刷新，scrollEnd则是滑动结束后再执行, 因此不使用scrollEnd
-          if (self.options.bottomBounceH) {
-            exceedHeight > self.options.bottomBounceH && self.$emit('handleBottomBounce', this)
+          if (self.bottomBounceH) {
+            exceedHeight > self.bottomBounceH && self.$emit('handleBottomBounce', this)
           } else {
             self.$emit('handleBottomBounce', this)
           }
         })
         IScroll.on('topBounce', function (exceedHeight) { // 需要在 下拉超过底部并松手一瞬间监控刷新，scrollEnd则是滑动结束后再执行, 因此不使用scrollEnd
-          if (self.options.topBounceH) {
-            exceedHeight > self.options.topBounceH && self.$emit('handleTopBounce', this)
+          if (self.topBounceH) {
+            exceedHeight > self.topBounceH && self.$emit('handleTopBounce', this)
           } else {
             self.$emit('handleTopBounce', this)
           }
