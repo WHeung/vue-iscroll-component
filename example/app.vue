@@ -51,7 +51,6 @@ export default {
         }
         this.topTips = tips
       }
-      console.log(iScroll.maxScrollY - iScroll.y)
       if (iScroll.maxScrollY - iScroll.y > 0) { // 上拉过底
         tips = '松开不触发handleBottomBounce'
         if (iScroll.maxScrollY - iScroll.y > this.bottomBounceH) {
@@ -74,6 +73,16 @@ export default {
 body {
   margin: 0;
   padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #555;
+}
+.main {
+  background: #fff;
+  flex: 0 0 300px;
+  margin: 0 auto;
+  max-width: 540px;
 }
 .list {
   margin: 0;
@@ -84,7 +93,8 @@ body {
   list-style: none;
   margin: 0 20px 20px;
   text-align: center;
-  background: #eee;
+  background: #111;
+  color: #fff;
 }
 
 .topOver {
