@@ -59,6 +59,9 @@ export default {
           self.$emit('handleScroll', this)
         })
         IScroll.on('bottomBounce', function (exceedHeight) { // 需要在 下拉超过底部并松手一瞬间监控刷新，scrollEnd则是滑动结束后再执行, 因此不使用scrollEnd
+          if (IScroll.isInTransition) { // 入触发bottomBounce是非手动touch操作，而是惯性transition导致，则不处理
+            return
+          }
           if (self.bottomBounceH) {
             exceedHeight > self.bottomBounceH && self.$emit('handleBottomBounce', this)
           } else {
@@ -66,6 +69,9 @@ export default {
           }
         })
         IScroll.on('topBounce', function (exceedHeight) { // 需要在 下拉超过底部并松手一瞬间监控刷新，scrollEnd则是滑动结束后再执行, 因此不使用scrollEnd
+          if (IScroll.isInTransition) { // 入触发topBounce是非手动touch操作，而是惯性transition导致，则不处理
+            return
+          }
           if (self.topBounceH) {
             exceedHeight > self.topBounceH && self.$emit('handleTopBounce', this)
           } else {

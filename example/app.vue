@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import IScroll from 'vue-iscroll-component'//'./dist/vue-iscroll.vue'//
+import IScroll from 'vue-iscroll-component' //'../index' 
 const OVERHEIGHT = 50
 
 export default {
