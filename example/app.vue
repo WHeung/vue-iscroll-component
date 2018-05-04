@@ -11,6 +11,11 @@
       <div :class="$style.topOver">
         <i></i><span>{{topTips}}</span>
       </div>
+      <IScroll :options="{eventPassthrough: true, scrollX: true, scrollY: false}" :contentStyle="{width: 'fit-content'}">
+        <ul :class="[$style.list, $style.horizontal]" style="display: flex;">
+          <li v-for="item in 30" :key="item">{{item}}</li>
+        </ul>
+      </IScroll>
       <ul :class="$style.list">
         <li v-for="item in 30" :key="item">{{item}}</li>
       </ul>
@@ -83,6 +88,7 @@ body {
   flex: 0 0 300px;
   margin: 0 auto;
   max-width: 540px;
+  width: 80%;
 }
 .list {
   margin: 0;
@@ -96,6 +102,15 @@ body {
   text-align: center;
   background: #111;
   color: #fff;
+}
+.horizontal {
+  width: fit-content;
+  display: flex;
+}
+.horizontal li {
+  flex: 0 0 auto;
+  margin-bottom: 0;
+  padding: 0 15px;
 }
 .list li:last-child {
   margin-bottom: 0;

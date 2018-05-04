@@ -80,5 +80,6 @@ new Vue({
 | handleScroll     | iScroll  | Tochmove event |
 | handleTopBounce  | iScroll| Drag the top event |
 | handleBottomBounce|iScroll| Drag the bottom event |
+| (iScroll event)|iScroll| [iscroll](https://github.com/cubiq/iscroll#configuring-the-iscroll) |
 
 
