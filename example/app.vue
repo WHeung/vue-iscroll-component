@@ -39,7 +39,7 @@ export default {
       topTips: '',
       bottomTips: '',
       containerStyle: {
-        height: '400px'
+        height: '400px' // 如果不设高度，默认高度为从元素开始到页面底部
       },
       topBounceH: OVERHEIGHT,
       bottomBounceH: OVERHEIGHT,
@@ -87,7 +87,7 @@ body {
   background: #fff;
   flex: 0 0 300px;
   margin: 0 auto;
-  max-width: 540px;
+  max-width: 300px;
   width: 80%;
 }
 .list {
@@ -110,7 +110,7 @@ body {
 .horizontal li {
   flex: 0 0 auto;
   margin-bottom: 0;
-  padding: 0 15px;
+  padding: 0 18px;
 }
 .list li:last-child {
   margin-bottom: 0;
